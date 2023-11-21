@@ -25,6 +25,7 @@ import {
 import "./App.css";
 
 import { useStateContext } from "./contexts/ContextProvider";
+import Login from "./components/Login";
 
 const App = () => {
   const {
@@ -85,6 +86,8 @@ const App = () => {
               {themeSettings && <ThemeSettings />}
 
               <Routes>
+                {/* auth */}
+                <Route path="/login" element={<Login />} />
                 {/* dashboard  */}
                 <Route path="/" element={<Ecommerce />} />
                 <Route path="/ecommerce" element={<Ecommerce />} />
