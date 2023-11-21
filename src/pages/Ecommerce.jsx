@@ -89,7 +89,7 @@ const Ecommerce = () => {
             <div className=" border-r-1 border-color m-4 pr-10">
               <div>
                 <p>
-                  <span className="text-3xl font-semibold">$93,438</span>
+                  <span className="text-3xl font-semibold">93,438VND</span>
                   <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs">
                     23%
                   </span>
@@ -97,7 +97,7 @@ const Ecommerce = () => {
                 <p className="text-gray-500 mt-1">Budget</p>
               </div>
               <div className="mt-8">
-                <p className="text-3xl font-semibold">$48,487</p>
+                <p className="text-3xl font-semibold">48,487VND</p>
 
                 <p className="text-gray-500 mt-1">Expense</p>
               </div>
