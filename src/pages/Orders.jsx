@@ -47,15 +47,20 @@ const Orders = () => {
       textAlign: 'Center',
       editType: 'custom',
       edit: { params: { customCss: 'e-customcss' } },
-      template: (props) => (
-        <DropDownListComponent 
-          id="status" 
-          dataSource={statusData} 
-          value={props.rowData && props.rowData.status} 
-        />
-      ),
-      
-      
+      template: (props) => {
+        console.log("props", props); 
+        const statusValue = props.status && props.status;
+        console.log("statusValue", statusValue); 
+
+        return (
+          <DropDownListComponent
+            id="status"
+            dataSource={statusData}
+            value={statusValue}
+          />
+        );
+      },
+
     },
 
     {
@@ -86,7 +91,7 @@ const Orders = () => {
       try {
         const ordersResponse = await fetch('https://silent257-001-site1.etempurl.com/api/Orders');
         const customersResponse = await fetch('https://silent257-001-site1.etempurl.com/api/Customers/GetAll');
-        
+
         const ordersData = await ordersResponse.json();
         const customerData = await customersResponse.json();
 
@@ -147,7 +152,7 @@ const Orders = () => {
         editSettings={editing}
         toolbar={toolbarOptions}
         toolbarClick={toolbarClick}
-        >
+      >
         <ColumnsDirective>
           {ordersGrids.map((item, index) => (
             <ColumnDirective key={index} {...item} />
