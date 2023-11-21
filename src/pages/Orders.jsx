@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from '@syncfusion/ej2-react-grids';
+import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
 import { ordersData, contextMenuItems, ordersGrid } from '../data/dummy';
 import { Header } from '../components';
-import product6 from "./../data/product6.jpg";
-import { useDispatch, useSelector } from 'react-redux';
 
 const Orders = () => {
-  const editing = { allowDeleting: true, allowEditing: false };
+  const editing = { allowDeleting: true, allowEditing: true };
+
+
 
 
   const ordersGrids = [
@@ -40,10 +41,12 @@ const Orders = () => {
     },
     {
       field: 'status',
-      headerText: 'status',
+      headerText: 'Status',
       width: '120',
       textAlign: 'Center',
+      editType: 'custom',
     },
+    
 
     {
       field: 'address',
@@ -106,7 +109,9 @@ const Orders = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-  console.log(combinedData);
+
+
+
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
       <Header category="Page" title="Orders" />
@@ -128,4 +133,5 @@ const Orders = () => {
     </div>
   );
 };
+
 export default Orders;
