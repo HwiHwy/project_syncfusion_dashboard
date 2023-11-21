@@ -6,7 +6,8 @@ import { ordersData, contextMenuItems, ordersGrid } from '../data/dummy';
 import { Header } from '../components';
 
 const Orders = () => {
-  const editing = { allowDeleting: true, allowEditing: true };
+  const editing = { allowDeleting: true, allowEditing: false };
+  const toolbarOptions = ['Add', 'Edit', 'Delete'];
 
 
 
@@ -45,8 +46,17 @@ const Orders = () => {
       width: '120',
       textAlign: 'Center',
       editType: 'custom',
+      edit: { params: { customCss: 'e-customcss' } },
+      template: (props) => (
+        <DropDownListComponent 
+          id="status" 
+          dataSource={statusData} 
+          value={props.rowData && props.rowData.status} 
+        />
+      ),
+      
+      
     },
-    
 
     {
       field: 'address',
@@ -64,7 +74,7 @@ const Orders = () => {
 
 
 
-  const [ordersData, setOrdersData] = useState([]);
+
   const [error, setError] = useState(null);
 
   const [loading, setLoading] = useState(true);
@@ -111,6 +121,17 @@ const Orders = () => {
   }
 
 
+  const toolbarClick = (args) => {
+    if (args.item.id === 'Grid_add') {
+    } else if (args.item.id === 'Grid_edit') {
+    } else if (args.item.id === 'Grid_delete') {
+    }
+  };
+  const statusData = [
+    { id: 1, text: 'In Progress' },
+    { id: 2, text: 'Completed' },
+    { id: 3, text: 'Cancelled' },
+  ];
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -124,12 +145,17 @@ const Orders = () => {
         allowPdfExport
         contextMenuItems={contextMenuItems}
         editSettings={editing}
-      >
+        toolbar={toolbarOptions}
+        toolbarClick={toolbarClick}
+        >
         <ColumnsDirective>
-          {ordersGrids.map((item, index) => <ColumnDirective key={index} {...item} />)}
+          {ordersGrids.map((item, index) => (
+            <ColumnDirective key={index} {...item} />
+          ))}
         </ColumnsDirective>
         <Inject services={[Resize, Sort, ContextMenu, Filter, Page, ExcelExport, Edit, PdfExport]} />
       </GridComponent>
+
     </div>
   );
 };
