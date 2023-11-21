@@ -4,12 +4,141 @@ import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
 import { ordersData, contextMenuItems, ordersGrid } from '../data/dummy';
 import { Header } from '../components';
+import { Button } from '@syncfusion/ej2/buttons';
 
 const Orders = () => {
   const editing = { allowDeleting: true, allowEditing: false };
   const toolbarOptions = ['Add', 'Edit', 'Delete'];
 
 
+  const setStatus = (statusInt) => {
+    switch (statusInt) {
+      case 1:
+        return 'Pending';
+      case 2:
+        return 'Approved';
+      case 3:
+        return 'Canceled';
+      default:
+        return 'Unknown';
+    }
+  };
+
+  const handleApprove = (props) => {
+    const { id } = props;
+    console.log(id)
+    const apiUrl = `https://silent257-001-site1.etempurl.com/api/Orders/UpdateStatus`;
+
+    const requestOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+        status: 2,
+      }),
+    };
+
+    fetch(apiUrl, requestOptions)
+      .then(data => {
+        console.log('API response:', data);
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error('API request error:', error);
+      });
+  };
+
+  const handleCancel = (props) => {
+    const { id } = props;
+    console.log(id)
+    const apiUrl = `https://silent257-001-site1.etempurl.com/api/Orders/UpdateStatus`;
+
+    const requestOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+        status: 3,
+      }),
+    };
+
+    fetch(apiUrl, requestOptions)
+      .then(data => {
+        console.log('API response:', data);
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error('API request error:', error);
+      });
+  };
+  const orderGridWithAction = [
+    {
+      field: 'customerId',
+      headerText: 'customerId',
+      width: '150',
+      editType: 'dropdownedit',
+      textAlign: 'Center',
+    },
+    {
+      field: 'CustomerName',
+      headerText: 'Customer Name',
+      width: '150',
+      textAlign: 'Center',
+    },
+    {
+      field: 'totalPrice',
+      headerText: 'totalPrice',
+      format: 'C2',
+      textAlign: 'Center',
+      editType: 'numericedit',
+      width: '150',
+    },
+    {
+      field: 'id',
+      headerText: 'Order ID',
+      width: '120',
+      textAlign: 'Center',
+    },
+    {
+      field: 'address',
+      headerText: 'Location',
+      width: '150',
+      textAlign: 'Center',
+    },
+    {
+      field: 'orderTime',
+      headerText: 'orderTime',
+      width: '150',
+      textAlign: 'Center',
+    },
+
+    {
+      headerText: 'Action',
+      width: '100',
+      textAlign: 'Center',
+      template: (props) => (
+        <div style={{
+          display: 'flex',
+          gap: '20px',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <button style={{ padding: '10px', color: 'white', backgroundColor: 'green', borderRadius: '5px' }} onClick={() => handleApprove(props)}>
+            Approve
+          </button>
+          <button style={{ padding: '10px', color: 'white', backgroundColor: 'red', borderRadius: '5px' }} onClick={() => handleCancel(props)}>
+            Cancel
+          </button>
+        </div>
+      ),
+    },
+
+  ];
 
 
   const ordersGrids = [
@@ -41,29 +170,6 @@ const Orders = () => {
       textAlign: 'Center',
     },
     {
-      field: 'status',
-      headerText: 'Status',
-      width: '120',
-      textAlign: 'Center',
-      editType: 'custom',
-      edit: { params: { customCss: 'e-customcss' } },
-      template: (props) => {
-        console.log("props", props); 
-        const statusValue = props.status && props.status;
-        console.log("statusValue", statusValue); 
-
-        return (
-          <DropDownListComponent
-            id="status"
-            dataSource={statusData}
-            value={statusValue}
-          />
-        );
-      },
-
-    },
-
-    {
       field: 'address',
       headerText: 'Location',
       width: '150',
@@ -86,12 +192,20 @@ const Orders = () => {
 
   const [combinedData, setCombinedData] = useState([]);
 
+
+
+  const pendingStuff = combinedData.filter(s => s.status === 1)
+  const approvedStuff = combinedData.filter(s => s.status === 2)
+  const cancelledStuff = combinedData.filter(s => s.status === 3)
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const ordersResponse = await fetch('https://silent257-001-site1.etempurl.com/api/Orders');
         const customersResponse = await fetch('https://silent257-001-site1.etempurl.com/api/Customers/GetAll');
 
+        // eslint-disable-next-line no-shadow
         const ordersData = await ordersResponse.json();
         const customerData = await customersResponse.json();
 
@@ -132,36 +246,81 @@ const Orders = () => {
     } else if (args.item.id === 'Grid_delete') {
     }
   };
-  const statusData = [
-    { id: 1, text: 'In Progress' },
-    { id: 2, text: 'Completed' },
-    { id: 3, text: 'Cancelled' },
-  ];
-
   return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Page" title="Orders" />
-      <GridComponent
-        id="gridcomp"
-        dataSource={combinedData}
-        allowPaging
-        allowSorting
-        allowExcelExport
-        allowPdfExport
-        contextMenuItems={contextMenuItems}
-        editSettings={editing}
-        toolbar={toolbarOptions}
-        toolbarClick={toolbarClick}
-      >
-        <ColumnsDirective>
-          {ordersGrids.map((item, index) => (
-            <ColumnDirective key={index} {...item} />
-          ))}
-        </ColumnsDirective>
-        <Inject services={[Resize, Sort, ContextMenu, Filter, Page, ExcelExport, Edit, PdfExport]} />
-      </GridComponent>
+    <>
+      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+        <Header category="Page" title="Orders waiting for" />
+        <GridComponent
+          id="gridcomp"
+          dataSource={pendingStuff}
+          allowPaging
+          allowSorting
+          allowExcelExport
+          allowPdfExport
+          contextMenuItems={contextMenuItems}
+          editSettings={editing}
+          toolbar={toolbarOptions}
+          toolbarClick={toolbarClick}
+        >
+          <ColumnsDirective>
+            {orderGridWithAction.map((item, index) => (
+              <ColumnDirective key={index} {...item} />
+            ))}
+          </ColumnsDirective>
+          <Inject services={[Resize, Sort, ContextMenu, Filter, Page, ExcelExport, Edit, PdfExport]} />
+        </GridComponent>
 
-    </div>
+      </div>
+      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+        <Header category="Page" title="Orders approved" />
+        <GridComponent
+          id="gridcomp"
+          dataSource={approvedStuff}
+          allowPaging
+          allowSorting
+          allowExcelExport
+          allowPdfExport
+          contextMenuItems={contextMenuItems}
+          editSettings={editing}
+          toolbar={toolbarOptions}
+          toolbarClick={toolbarClick}
+        >
+          <ColumnsDirective>
+            {ordersGrids.map((item, index) => (
+              <ColumnDirective key={index} {...item} />
+            ))}
+          </ColumnsDirective>
+          <Inject services={[Resize, Sort, ContextMenu, Filter, Page, ExcelExport, Edit, PdfExport]} />
+        </GridComponent>
+
+      </div>
+      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+        <Header category="Page" title="Orders cancelled" />
+        <GridComponent
+          id="gridcomp"
+          dataSource={cancelledStuff}
+          allowPaging
+          allowSorting
+          allowExcelExport
+          allowPdfExport
+          contextMenuItems={contextMenuItems}
+          editSettings={editing}
+          toolbar={toolbarOptions}
+          toolbarClick={toolbarClick}
+        >
+          <ColumnsDirective>
+            {ordersGrids.map((item, index) => (
+              <ColumnDirective key={index} {...item} />
+            ))}
+          </ColumnsDirective>
+          <Inject services={[Resize, Sort, ContextMenu, Filter, Page, ExcelExport, Edit, PdfExport]} />
+        </GridComponent>
+
+      </div>
+    </>
+
+
+
   );
 };
 
