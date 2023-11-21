@@ -45,14 +45,21 @@ const Customers = () => {
       format: "yMd",
       textAlign: "Center",
     },
-  
+
     {
       field: "orders",
       headerText: "orders",
       width: "150",
       textAlign: "Center",
     },
-  
+    {
+      headerText: 'Order Count',
+      width: '100',
+      textAlign: 'Center',
+      template: (props) => (
+        <span>{props.orders.length}</span>
+      ),
+    },
     {
       field: "id",
       headerText: "Customer ID",
