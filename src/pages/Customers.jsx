@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GridComponent, ColumnsDirective, ColumnDirective, Page, Selection, Inject, Edit, Toolbar, Sort, Filter } from '@syncfusion/ej2-react-grids';
 
-import { customersData, customersGrid } from '../data/dummy';
 import { Header } from '../components';
 
 const Customers = () => {
@@ -9,11 +8,104 @@ const Customers = () => {
   const toolbarOptions = ['Delete'];
   const editing = { allowDeleting: true, allowEditing: true };
 
+
+  const customersGrid = [
+    { type: "checkbox", width: "50" },
+    {
+      field: "firstName",
+
+      headerText: "firstName",
+      width: "150",
+      textAlign: "Center",
+    },
+    {
+      field: "lastName",
+      headerText: "lastName",
+      width: "150",
+      textAlign: "Center",
+    },
+    {
+      field: "address",
+      headerText: "address",
+      width: "130",
+      format: "yMd",
+      textAlign: "Center",
+    },
+    {
+      field: "email",
+      headerText: "email",
+      width: "100",
+      format: "C2",
+      textAlign: "Center",
+    },
+    {
+      field: "phone",
+      headerText: "phone",
+      width: "100",
+      format: "yMd",
+      textAlign: "Center",
+    },
+  
+    {
+      field: "orders",
+      headerText: "orders",
+      width: "150",
+      textAlign: "Center",
+    },
+  
+    {
+      field: "id",
+      headerText: "Customer ID",
+      width: "120",
+      textAlign: "Center",
+      isPrimaryKey: true,
+    },
+  ];
+
+
+
+  const [customers, setCustomers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://silent257-001-site1.etempurl.com/api/Customers/GetAll');
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const data = await response.json();
+        setCustomers(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError('Error fetching data. Please try again.');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  console.log('====================================');
+  console.log(customers);
+  console.log('====================================');
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
       <Header category="Page" title="Customers" />
       <GridComponent
-        dataSource={customersData}
+        dataSource={customers}
         enableHover={false}
         allowPaging
         pageSettings={{ pageCount: 5 }}
