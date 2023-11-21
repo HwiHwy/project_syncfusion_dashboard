@@ -13,6 +13,8 @@
     "@syncfusion/ej2-react-popups": "^19.4.52",
     "@syncfusion/ej2-react-richtexteditor": "^19.4.50",
     "@syncfusion/ej2-react-schedule": "^19.4.50",
+    "@tanstack/react-query": "^5.8.4",
+    "axios": "^1.6.2",
     "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
     "react": "^17.0.2",
