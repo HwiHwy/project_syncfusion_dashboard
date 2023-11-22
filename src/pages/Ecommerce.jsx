@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { IoIosMore } from 'react-icons/io';
@@ -17,7 +17,54 @@ const DropDown = ({ currentMode }) => (
 
 const Ecommerce = () => {
   const { currentColor, currentMode } = useStateContext();
+  const [error, setError] = useState(null);
 
+  const [loading, setLoading] = useState(true);
+
+  const [combinedData, setCombinedData] = useState([]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const ordersResponse = await fetch('https://silent257-001-site1.etempurl.com/api/Orders');
+        const customersResponse = await fetch('https://silent257-001-site1.etempurl.com/api/Customers/GetAll');
+
+        const ordersData = await ordersResponse.json();
+        const customerData = await customersResponse.json();
+
+        const combinedData = ordersData.map(order => ({
+          ...order,
+          CustomerName: getCustomerName(customerData, order.customerId),
+        }));
+
+        setCombinedData(combinedData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError('Error fetching data. Please try again.');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const getCustomerName = (customerData, customerId) => {
+    const customer = customerData.find(customer => customer.id === customerId);
+    return customer ? `${customer.firstName} ${customer.lastName}` : '';
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+console.log('====================================');
+console.log(combinedData);
+console.log('====================================');
   return (
     <div className="mt-24">
       <div className="flex flex-wrap lg:flex-nowrap justify-center ">

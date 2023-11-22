@@ -27,7 +27,8 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   </TooltipComponent>
 );
 
-const Navbar = () => {
+const Navbar = (navigate ) => {
+
   const { currentColor, activeMenu, setActiveMenu, handleClick, isClicked, setScreenSize, screenSize } = useStateContext();
 
   useEffect(() => {
@@ -49,7 +50,11 @@ const Navbar = () => {
   }, [screenSize]);
 
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
+  const userDataString = localStorage.getItem('userData');
 
+  const userData = userDataString ? JSON.parse(userDataString) : null;
+  
+ 
   return (
     <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative">
 
@@ -64,13 +69,13 @@ const Navbar = () => {
           >
             <img
               className="rounded-full w-8 h-8"
-              src={avatar}
+              src={userData?.image || avatar}
               alt="user-profile"
             />
             <p>
               <span className="text-gray-400 text-14">Hi,</span>{' '}
               <span className="text-gray-400 font-bold ml-1 text-14">
-                Michael
+                {userData?.firstName || 'Guest'}
               </span>
             </p>
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
@@ -79,7 +84,7 @@ const Navbar = () => {
 
         {isClicked.chat && (<Chat />)}
         {isClicked.notification && (<Notification />)}
-        {isClicked.userProfile && (<UserProfile />)}
+        {isClicked.userProfile && <UserProfile navigate={navigate} />}
       </div>
     </div>
   );

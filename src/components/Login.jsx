@@ -26,10 +26,13 @@ const Login = () => {
             }
             const userData = await response.json();
             const { storeId } = userData;
-            nav('/ecommerce')
+            localStorage.setItem('userData', JSON.stringify(userData));
+
+            nav('/orders')
             if (storeId) {
                 localStorage.setItem('storeId', storeId);
-                nav('/ecommerce')
+
+                nav('/orders')
             }
         } catch (error) {
             // Handle login error

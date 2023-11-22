@@ -89,7 +89,7 @@ const App = () => {
                 {/* auth */}
                 <Route path="/login" element={<Login />} />
                 {/* dashboard  */}
-                <Route path="/" element={<Ecommerce />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/ecommerce" element={<Ecommerce />} />
 
                 {/* pages  */}

@@ -6,7 +6,7 @@ import { Header } from '../components';
 const Customers = () => {
   const selectionsettings = { persistSelection: true };
   const toolbarOptions = ['Delete'];
-  const editing = { allowDeleting: true, allowEditing: true };
+  const editing = { allowDeleting: false, allowEditing: false };
 
 
   const customersGrid = [
@@ -51,7 +51,21 @@ const Customers = () => {
       headerText: "orders",
       width: "150",
       textAlign: "Center",
+      template: (props) => (
+        <div>
+          {Array.isArray(props.orders) &&
+            props.orders.map((order) => (
+              <div key={order.id}>
+                <p>Order ID: {order.id}/Status: {order.status}</p>
+  
+                <p>Pickup Time: {order.pickUpTime}</p>
+              </div>
+            ))}
+          {Array.isArray(props.orders) && props.orders.length > 2 && <p>...</p>}
+        </div>
+      ),
     },
+    
     {
       headerText: 'Order Count',
       width: '100',
@@ -74,6 +88,7 @@ const Customers = () => {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -105,9 +120,7 @@ const Customers = () => {
     return <div>Error: {error}</div>;
   }
 
-  console.log('====================================');
-  console.log(customers);
-  console.log('====================================');
+
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
       <Header category="Page" title="Customers" />
