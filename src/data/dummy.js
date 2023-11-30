@@ -649,8 +649,8 @@ export const chatData = [
 export const earningData = [
   {
     icon: <MdOutlineSupervisorAccount />,
-    amount: "39,354",
-    percentage: "-4%",
+    amount: "20",
+    percentage: "",
     title: "Customers",
     iconColor: "#03C9D7",
     iconBg: "#E5FAFB",
@@ -658,9 +658,9 @@ export const earningData = [
   },
   {
     icon: <BsBoxSeam />,
-    amount: "4,396",
-    percentage: "+23%",
-    title: "Products",
+    amount: "4",
+    percentage: "",
+    title: "Transaction",
     iconColor: "rgb(255, 244, 229)",
     iconBg: "rgb(254, 201, 15)",
     pcColor: "green-600",
@@ -669,71 +669,32 @@ export const earningData = [
     icon: <FiBarChart />,
     amount: "423,39",
     percentage: "+38%",
-    title: "Sales",
+    title: "20",
     iconColor: "rgb(228, 106, 118)",
     iconBg: "rgb(255, 244, 229)",
 
     pcColor: "green-600",
-  },
-  {
-    icon: <HiOutlineRefresh />,
-    amount: "39,354",
-    percentage: "-12%",
-    title: "Refunds",
-    iconColor: "rgb(0, 194, 146)",
-    iconBg: "rgb(235, 250, 242)",
-    pcColor: "red-600",
   },
 ];
 
 export const recentTransactions = [
   {
     icon: <BsCurrencyDollar />,
-    amount: "+$350",
-    title: "Paypal Transfer",
+    amount: "",
+    title: "MOMO",
     desc: "Money Added",
     iconColor: "#03C9D7",
     iconBg: "#E5FAFB",
-    pcColor: "green-600",
-  },
-  {
-    icon: <BsShield />,
-    amount: "-$560",
-    desc: "Bill Payment",
-    title: "Wallet",
-    iconColor: "rgb(0, 194, 146)",
-    iconBg: "rgb(235, 250, 242)",
-    pcColor: "red-600",
-  },
-  {
-    icon: <FiCreditCard />,
-    amount: "+$350",
-    title: "Credit Card",
-    desc: "Money reversed",
-    iconColor: "rgb(255, 244, 229)",
-    iconBg: "rgb(254, 201, 15)",
-
-    pcColor: "green-600",
-  },
-  {
-    icon: <TiTick />,
-    amount: "+$350",
-    title: "Bank Transfer",
-    desc: "Money Added",
-
-    iconColor: "rgb(228, 106, 118)",
-    iconBg: "rgb(255, 244, 229)",
     pcColor: "green-600",
   },
   {
     icon: <BsCurrencyDollar />,
-    amount: "-$50",
-    percentage: "+38%",
-    title: "Refund",
-    desc: "Payment Sent",
+    amount: "",
+    title: "COD",
+    desc: "Money Added",
     iconColor: "#03C9D7",
     iconBg: "#E5FAFB",
-    pcColor: "red-600",
+    pcColor: "green-600",
   },
 ];
 
@@ -2966,35 +2927,7 @@ export const SparklineAreaData = [
 ];
 
 export const lineCustomSeries = [
-  {
-    dataSource: lineChartData[0],
-    xName: "x",
-    yName: "y",
-    name: "Germany",
-    width: "2",
-    marker: { visible: true, width: 10, height: 10 },
-    type: "Line",
-  },
-
-  {
-    dataSource: lineChartData[1],
-    xName: "x",
-    yName: "y",
-    name: "England",
-    width: "2",
-    marker: { visible: true, width: 10, height: 10 },
-    type: "Line",
-  },
-
-  {
-    dataSource: lineChartData[2],
-    xName: "x",
-    yName: "y",
-    name: "India",
-    width: "2",
-    marker: { visible: true, width: 10, height: 10 },
-    type: "Line",
-  },
+  
 ];
 
 export const pieChartData = [

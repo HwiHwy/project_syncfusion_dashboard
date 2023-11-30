@@ -92,11 +92,16 @@ const Orders = () => {
     },
     {
       field: 'totalPrice',
-      headerText: 'totalPrice',
-      format: 'C2',
-      textAlign: 'Center',
+      headerText: 'Total Price',
+      textAlign: 'center',
       editType: 'numericedit',
       width: '150',
+      template: (props) => (
+        <div>
+          {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'VND' }).format(props.totalPrice)}
+          {' VND'}
+        </div>
+      ),
     },
     {
       field: 'id',
@@ -176,11 +181,16 @@ const Orders = () => {
     },
     {
       field: 'totalPrice',
-      headerText: 'totalPrice',
-      format: 'C2',
-      textAlign: 'Center',
+      headerText: 'Total Price',
+      textAlign: 'center',
       editType: 'numericedit',
       width: '150',
+      template: (props) => (
+        <div>
+          {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'VND' }).format(props.totalPrice)}
+          {' VND'}
+        </div>
+      ),
     },
     {
       field: 'id',

@@ -72,7 +72,7 @@ console.log('====================================');
           <div className="flex justify-between items-center">
             <div>
               <p className="font-bold text-gray-400">Earnings</p>
-              <p className="text-2xl">$63,448.78</p>
+              <p className="text-2xl">375.000 VND</p>
             </div>
             <button
               type="button"
@@ -136,17 +136,17 @@ console.log('====================================');
             <div className=" border-r-1 border-color m-4 pr-10">
               <div>
                 <p>
-                  <span className="text-3xl font-semibold">93,438VND</span>
+                  <span className="text-3xl font-semibold">37.500 VND</span>
                   <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs">
-                    23%
+
                   </span>
                 </p>
-                <p className="text-gray-500 mt-1">Budget</p>
+                <p className="text-gray-500 mt-1">Revenue</p>
               </div>
               <div className="mt-8">
-                <p className="text-3xl font-semibold">48,487VND</p>
+                <p className="text-3xl font-semibold">70.000 VND</p>
 
-                <p className="text-gray-500 mt-1">Expense</p>
+                <p className="text-gray-500 mt-1">Average transaction </p>
               </div>
 
               <div className="mt-5">
@@ -175,7 +175,7 @@ console.log('====================================');
               <p className="font-semibold text-white text-2xl">Earnings</p>
 
               <div>
-                <p className="text-2xl text-white font-semibold mt-8">$63,448.78</p>
+                <p className="text-2xl text-white font-semibold mt-8">37.500 VND</p>
                 <p className="text-gray-200">Monthly revenue</p>
               </div>
             </div>
@@ -185,7 +185,7 @@ console.log('====================================');
             </div>
           </div>
 
-          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl md:w-400 p-8 m-3 flex justify-center items-center gap-10">
+          {/* <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl md:w-400 p-8 m-3 flex justify-center items-center gap-10">
             <div>
               <p className="text-2xl font-semibold ">$43,246</p>
               <p className="text-gray-400">Yearly sales</p>
@@ -194,7 +194,7 @@ console.log('====================================');
             <div className="w-40">
               <Pie id="pie-chart" data={ecomPieChartData} legendVisiblity={false} height="160px" />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -228,27 +228,27 @@ console.log('====================================');
             ))}
           </div>
           <div className="flex justify-between items-center mt-5 border-t-1 border-color">
-            <div className="mt-3">
+            {/* <div className="mt-3">
               <Button
                 color="white"
                 bgColor={currentColor}
                 text="Add"
                 borderRadius="10px"
               />
-            </div>
+            </div> */}
 
-            <p className="text-gray-400 text-sm">36 Recent Transactions</p>
+            {/* <p className="text-gray-400 text-sm">36 Recent Transactions</p> */}
           </div>
         </div>
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl w-96 md:w-760">
-          <div className="flex justify-between items-center gap-2 mb-10">
-            <p className="text-xl font-semibold">Sales Overview</p>
-            <DropDown currentMode={currentMode} />
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl w-96 md:w-760">
+            <div className="flex justify-between items-center gap-2 mb-10">
+              <p className="text-xl font-semibold">Sales Overview</p>
+              <DropDown currentMode={currentMode} />
+            </div>
+            <div className="md:w-full overflow-auto">
+              <LineChart />
+            </div>
           </div>
-          <div className="md:w-full overflow-auto">
-            <LineChart />
-          </div>
-        </div>
       </div>
 
       <div className="flex flex-wrap justify-center">
